@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidpace Email Sender</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 Vidpace Email Sender</h1>
+            <p>Send personalized HTML emails to prospects</p>
+        </header>
+
+        <div class="form-container">
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="senderEmail">Your Email:</label>
+                    <input type="email" id="senderEmail" name="senderEmail" required 
+                           placeholder="your.name@vidpace.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="senderPassword">Your Email Password:</label>
+                    <input type="password" id="senderPassword" name="senderPassword" required 
+                           placeholder="Your email password">
+                </div>
+
+                <div class="form-group">
+                    <label for="recipientEmail">Recipient Email:</label>
+                    <input type="email" id="recipientEmail" name="recipientEmail" required 
+                           placeholder="prospect@company.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="recipientName">Recipient Name:</label>
+                    <input type="text" id="recipientName" name="recipientName" required 
+                           placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Email Subject:</label>
+                    <input type="text" id="subject" name="subject" required 
+                           placeholder="Partnership Opportunity with Vidpace">
+                </div>
+
+                <div class="form-group">
+                    <label for="emailBody">Email Body (HTML):</label>
+                    <textarea id="emailBody" name="emailBody" rows="10" required 
+                              placeholder="Enter your HTML email content here...">
+<p>Hi {{name}},</p>
+
+<p>I hope this email finds you well. My name is [Your Name], and I'm reaching out from <strong>Vidpace</strong>, a leading video production company that specializes in creating high-quality, engaging content for businesses like yours.</p>
+
+<p>We've been following your company's growth and are impressed by your innovative approach to [industry/field]. We believe there's a great opportunity for us to collaborate and help you take your video content to the next level.</p>
+
+<p><strong>What we offer:</strong></p>
+<ul>
+    <li>Professional video production services</li>
+    <li>Creative storytelling and brand messaging</li>
+    <li>Fast turnaround times</li>
+    <li>Competitive pricing packages</li>
+</ul>
+
+<p>I'd love to schedule a brief 15-minute call to discuss how Vidpace can help your business achieve its video marketing goals. Are you available for a quick chat this week?</p>
+
+<p>Looking forward to hearing from you!</p>
+
+<p>Best regards,<br>
+[Your Name]<br>
+<strong>Vidpace</strong><br>
+📧 [your.email@vidpace.com]<br>
+📞 [Your Phone Number]</p>
+                    </textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="previewBtn">👁️ Preview Email</button>
+                    <button type="submit" id="sendBtn">📤 Send Email</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="previewSection" class="preview-section" style="display: none;">
+            <h3>📋 Email Preview</h3>
+            <div id="previewContent" class="preview-content"></div>
+            <button type="button" id="closePreview">❌ Close Preview</button>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
