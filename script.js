@@ -1,4 +1,4 @@
-// Email sender frontend logic
+// Email sender frontend logic with custom message support
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('emailForm');
     const previewBtn = document.getElementById('previewBtn');
@@ -14,15 +14,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preview email functionality
     previewBtn.addEventListener('click', function() {
         const recipientName = document.getElementById('recipientName').value;
+        const senderEmail = document.getElementById('senderEmail').value;
+        const customMessage = document.getElementById('customMessage').value;
         const emailBody = document.getElementById('emailBody').value;
         
-        if (!recipientName || !emailBody) {
-            showStatus('Please fill in recipient name and email body to preview.', 'error');
+        if (!recipientName || !emailBody || !senderEmail) {
+            showStatus('Please fill in sender email, recipient name and email body to preview.', 'error');
             return;
         }
 
-        // Replace {{name}} placeholder with actual name
-        const personalizedBody = emailBody.replace(/\{\{name\}\}/g, recipientName);
+        // Extract sender name from email (part before @)
+        const senderName = senderEmail.split('@')[0];
+
+        // Replace placeholders with actual values
+        let personalizedBody = emailBody
+            .replace(/\[Name\]/g, recipientName)
+            .replace(/\[SenderName\]/g, senderName)
+            .replace(/\[Message\]/g, customMessage || 'I hope this email finds you well.')
+            .replace(/\{\{name\}\}/g, recipientName); // Keep backward compatibility
         
         // Show preview
         previewContent.innerHTML = personalizedBody;
@@ -46,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             recipientEmail: document.getElementById('recipientEmail').value,
             recipientName: document.getElementById('recipientName').value,
             subject: document.getElementById('subject').value,
-            emailBody: document.getElementById('emailBody').value
+            emailBody: document.getElementById('emailBody').value,
+            customMessage: document.getElementById('customMessage').value
         };
 
         console.log('Email data:', { ...emailData, senderPassword: '[HIDDEN]' });
@@ -57,7 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Personalize email body
-        emailData.emailBody = emailData.emailBody.replace(/\{\{name\}\}/g, emailData.recipientName);
+        const senderName = emailData.senderEmail.split('@')[0];
+        emailData.emailBody = emailData.emailBody
+            .replace(/\[Name\]/g, emailData.recipientName)
+            .replace(/\[SenderName\]/g, senderName)
+            .replace(/\[Message\]/g, emailData.customMessage || 'I hope this email finds you well.')
+            .replace(/\{\{name\}\}/g, emailData.recipientName); // Keep backward compatibility
 
         // Show loading state
         showStatus('<span class="loading-spinner"></span>Sending email...', 'loading');
@@ -72,7 +87,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(emailData)
+                body: JSON.stringify({
+                    senderEmail: emailData.senderEmail,
+                    senderPassword: emailData.senderPassword,
+                    recipientEmail: emailData.recipientEmail,
+                    recipientName: emailData.recipientName,
+                    subject: emailData.subject,
+                    emailBody: emailData.emailBody
+                })
             });
 
             console.log('Response status:', response.status);
@@ -189,3 +211,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelector('.button-group').appendChild(clearDataBtn);
 });
+

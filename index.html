@@ -46,32 +46,51 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="customMessage">Custom Message:</label>
+                    <textarea id="customMessage" name="customMessage" rows="3" 
+                              placeholder="Enter your custom message here (will replace [Message] in template)...">I hope this email finds you well. I wanted to reach out to discuss potential collaboration opportunities between our companies.</textarea>
+                </div>
+
+                <div class="form-group">
                     <label for="emailBody">Email Body (HTML):</label>
-                    <textarea id="emailBody" name="emailBody" rows="10" required 
+                    <textarea id="emailBody" name="emailBody" rows="20" required 
                               placeholder="Enter your HTML email content here...">
-<p>Hi {{name}},</p>
+<html>
+  <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:'Segoe UI', sans-serif;">
+    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+      
+      <!-- Header -->
+      <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">
+        <img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />
+      </div>
 
-<p>I hope this email finds you well. My name is [Your Name], and I'm reaching out from <strong>Vidpace</strong>, a leading video production company that specializes in creating high-quality, engaging content for businesses like yours.</p>
+      <!-- Body -->
+      <div style="padding:30px; text-align:left;">
+        <h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [Name],</h2>
 
-<p>We've been following your company's growth and are impressed by your innovative approach to [industry/field]. We believe there's a great opportunity for us to collaborate and help you take your video content to the next level.</p>
+        <p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">
+          This is [SenderName] from vidpace. [Message]
+        </p>
 
-<p><strong>What we offer:</strong></p>
-<ul>
-    <li>Professional video production services</li>
-    <li>Creative storytelling and brand messaging</li>
-    <li>Fast turnaround times</li>
-    <li>Competitive pricing packages</li>
-</ul>
+        <p style="font-size:16px; color:#444; line-height:1.6;">
+          Regards,<br>
+          [SenderName]<br>
+          Vidpace
+        </p>
 
-<p>I'd love to schedule a brief 15-minute call to discuss how Vidpace can help your business achieve its video marketing goals. Are you available for a quick chat this week?</p>
+        <div style="text-align:center; margin:30px 0;">
+          <a href="https://www.vidpace.com/schedule-a-call" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>
+        </div>
+      </div>
 
-<p>Looking forward to hearing from you!</p>
-
-<p>Best regards,<br>
-[Your Name]<br>
-<strong>Vidpace</strong><br>
-📧 [your.email@vidpace.com]<br>
-📞 [Your Phone Number]</p>
+      <!-- Footer -->
+      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">
+        © 2025 Vidpace · Creative Youtube Automation<br/>
+        <a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>
+      </div>
+    </div>
+  </body>
+</html>
                     </textarea>
                 </div>
 
@@ -91,7 +110,7 @@
         <div id="statusMessage" class="status-message"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script_with_message.js"></script>
 </body>
 </html>
 
