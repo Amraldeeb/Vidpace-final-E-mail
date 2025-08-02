@@ -1,5 +1,3 @@
-https://vidpace-final-backend-email.vercel.app
-
     // Fixed HTML email template
     const EMAIL_TEMPLATE = `
 <html>
