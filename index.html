@@ -46,52 +46,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="customMessage">Custom Message:</label>
-                    <textarea id="customMessage" name="customMessage" rows="3" 
-                              placeholder="Enter your custom message here (will replace [Message] in template)...">I hope this email finds you well. I wanted to reach out to discuss potential collaboration opportunities between our companies.</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="emailBody">Email Body (HTML):</label>
-                    <textarea id="emailBody" name="emailBody" rows="20" required 
-                              placeholder="Enter your HTML email content here...">
-<html>
-  <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:'Segoe UI', sans-serif;">
-    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-      
-      <!-- Header -->
-      <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">
-        <img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />
-      </div>
-
-      <!-- Body -->
-      <div style="padding:30px; text-align:left;">
-        <h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [Name],</h2>
-
-        <p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">
-          This is [SenderName] from vidpace. [Message]
-        </p>
-
-        <p style="font-size:16px; color:#444; line-height:1.6;">
-          Regards,<br>
-          [SenderName]<br>
-          Vidpace
-        </p>
-
-        <div style="text-align:center; margin:30px 0;">
-          <a href="https://www.vidpace.com/schedule-a-call" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">
-        © 2025 Vidpace · Creative Youtube Automation<br/>
-        <a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>
-      </div>
-    </div>
-  </body>
-</html>
-                    </textarea>
+                    <label for="customMessage">Your Message:</label>
+                    <textarea id="customMessage" name="customMessage" rows="4" required
+                              placeholder="Enter your personalized message here...">I hope this email finds you well. I wanted to reach out to discuss potential collaboration opportunities between our companies.</textarea>
                 </div>
 
                 <div class="button-group">
@@ -103,14 +60,15 @@
 
         <div id="previewSection" class="preview-section" style="display: none;">
             <h3>📋 Email Preview</h3>
-            <div id="previewContent" class="preview-content"></div>
+            <div id="previewContent" class="preview-content">
+                <iframe id="previewFrame" style="width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 5px;"></iframe>
+            </div>
             <button type="button" id="closePreview">❌ Close Preview</button>
         </div>
 
         <div id="statusMessage" class="status-message"></div>
     </div>
 
-    <script src="script_with_message.js"></script>
+    <script src="script_fixed.js"></script>
 </body>
 </html>
-
