@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusMessage = document.getElementById('statusMessage');
 
     // Backend API URL - Using the correct Vercel deployment URL
-    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app/';
+    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
 
     // Fixed HTML email template
     const EMAIL_TEMPLATE = `
