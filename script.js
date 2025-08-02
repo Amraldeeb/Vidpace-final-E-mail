@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
         <h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [[Recepient Name]],</h2>
         <p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">This is [[SenderName]] from Vidpace. [[Body]]</p>
         <p style="font-size:16px; color:#444; line-height:1.6;">if you're interested we can schedule a quick meeting to discuss this further.</p>
-        <p style="font-size:16px; color:#444; line-height:1.6;">Regards,  
-[[SenderName]]  
-Vidpace Team</p>
+        <p style="font-size:16px; color:#444; line-height:1.6;">Regards,</p>  
+        <p style="font-size:16px; color:#444; line-height:1.6;">[[SenderName]]</p>  
+        <p style="font-size:16px; color:#444; line-height:1.6;">Vidpace Team</p>
         <div style="text-align:center; margin:30px 0;">
           <a href="https://vidpace.com/#/schedule" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>
         </div>
