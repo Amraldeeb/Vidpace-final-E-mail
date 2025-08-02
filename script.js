@@ -1,45 +1,49 @@
 // Fixed Email sender frontend logic
-document.addEventListener('DOMContentLoaded', function() {
-    const emailForm = document.getElementById('emailForm');
-    const previewBtn = document.getElementById('previewBtn');
-    const sendBtn = document.getElementById('sendBtn');
-    const closePreviewBtn = document.getElementById('closePreview');
-    const previewSection = document.getElementById('previewSection');
-    const previewFrame = document.getElementById('previewFrame');
-    const statusMessage = document.getElementById('statusMessage');
+document.addEventListener("DOMContentLoaded", function() {
+    const emailForm = document.getElementById("emailForm");
+    const previewBtn = document.getElementById("previewBtn");
+    const sendBtn = document.getElementById("sendBtn");
+    const closePreviewBtn = document.getElementById("closePreview");
+    const previewSection = document.getElementById("previewSection");
+    const previewFrame = document.getElementById("previewFrame");
+    const statusMessage = document.getElementById("statusMessage");
 
     // Backend API URL - Using the correct Vercel deployment URL
-    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
+    const API_BASE_URL = "https://vidpace-final-backend-email.vercel.app";
 
     // Fixed HTML email template
-    const EMAIL_TEMPLATE = '<html>' +
+    const EMAIL_TEMPLATE = 
+'<html>' +
 '  <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:\'Segoe UI\', sans-serif;">' +
-'    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">' +
+'    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08 );">' +
 '      <!-- Header -->' +
-'      <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">' +
-'        <img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />' +
+'      '<div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">' +
+'        '<img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />' +
 '      </div>' +
 '      <!-- Body -->' +
-'      <div style="padding:30px; text-align:left;">' +
-'        <h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [[Recepient Name]],</h2>' +
-'        <p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">This is [[SenderName]] from Vidpace.[[Body]]</p>' +
-'        <p style="font-size:16px; color:#444; line-height:1.6;">if you\'re interested we can schedule a quick meeting to discuss this further.</p>' +
-'        <p style="font-size:16px; color:#444; line-height:1.6;">Regards,<br>[[SenderName]]<br>Vidpace Team</p>' +
-'        <div style="text-align:center; margin:30px 0;">' +
-'          <a href="https://vidpace.com/#/schedule" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>' +
+'      '<div style="padding:30px; text-align:left;">' +
+'        '<h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [[Recepient Name]],</h2>' +
+'        '<p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">This is [[SenderName]] from Vidpace.[[Body]]</p>' +
+'        '<p style="font-size:16px; color:#444; line-height:1.6;">if you\\\'re interested we can schedule a quick meeting to discuss this further.</p>' +
+'        '<p style="font-size:16px; color:#444; line-height:1.6;">Regards,  
+[[SenderName]]  
+Vidpace Team</p>' +
+'        '<div style="text-align:center; margin:30px 0;">' +
+'          '<a href="https://vidpace.com/#/schedule" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>' +
 '        </div>' +
 '      </div>' +
 '      <!-- Footer -->' +
-'      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">' +
-'        © 2025 Vidpace · Creative Youtube Automation<br/>' +
-'        <a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>' +
+'      '<div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">' +
+'        '© 2024 Vidpace · Creative Youtube Automation  
+' +
+'        '<a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>' +
 '      </div>' +
 '    </div>' +
 '  </body>' +
 '</html>';
 
     // Preview email functionality - Fixed to render HTML properly
-    previewBtn.addEventListener('click', function() {
+    previewBtn.addEventListener('click', function( ) {
         const recipientName = document.getElementById('recipientName').value;
         const senderEmail = document.getElementById('senderEmail').value;
         const customMessage = document.getElementById('customMessage').value;
@@ -51,11 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Extract sender name from email (part before @)
         const senderName = senderEmail.split('@')[0];
+        const capitalizedSenderName = senderName.charAt(0).toUpperCase() + senderName.slice(1);
 
         // Replace placeholders with actual values
-        let personalizedBody = EMAIL_TEMPLATE.replace(/\[\[Recepient Name\]\]/g, recipientName)
-            .replace(/\[\[SenderName\]\]/g, senderName)
-            .replace(/\[\[Body\]\]/g, customMessage);
+        let personalizedBody = EMAIL_TEMPLATE.replace(/[[Recepient Name]]/g, recipientName)
+            .replace(/[[SenderName]]/g, capitalizedSenderName)
+            .replace(/[[Body]]/g, customMessage);
         
         // Show preview using div for proper HTML rendering
         document.getElementById("previewContent").innerHTML = personalizedBody;
@@ -95,9 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Generate personalized email body
         const senderName = emailData.senderEmail.split('@')[0];
-        emailData.emailBody = EMAIL_TEMPLATE.replace(/\[\[Recepient Name\]\]/g, emailData.recipientName)
-            .replace(/\[\[SenderName\]\]/g, senderName)
-            .replace(/\[\[Body\]\]/g, customMessage);
+        const capitalizedSenderName = senderName.charAt(0).toUpperCase() + senderName.slice(1);
+        emailData.emailBody = EMAIL_TEMPLATE.replace(/[[Recepient Name]]/g, emailData.recipientName)
+            .replace(/[[SenderName]]/g, capitalizedSenderName)
+            .replace(/[[Body]]/g, customMessage);
 
         // Show loading state
         showStatus('<span class="loading-spinner"></span>Sending email...', 'loading');
