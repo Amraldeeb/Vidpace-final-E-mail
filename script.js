@@ -1,34 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const emailForm = document.getElementById('emailForm');
-    const previewBtn = document.getElementById('previewBtn');
-    const sendBtn = document.getElementById('sendBtn');
-    const closePreviewBtn = document.getElementById('closePreview');
-    const previewSection = document.getElementById('previewSection');
-    const previewContent = document.getElementById('previewContent');
-    const statusMessage = document.getElementById('statusMessage');
+// Fixed Email sender frontend logic
+document.addEventListener("DOMContentLoaded", function() {
+    const emailForm = document.getElementById("emailForm");
+    const previewBtn = document.getElementById("previewBtn");
+    const sendBtn = document.getElementById("sendBtn");
+    const closePreviewBtn = document.getElementById("closePreview");
+    const previewSection = document.getElementById("previewSection");
+    const previewFrame = document.getElementById("previewFrame");
+    const statusMessage = document.getElementById("statusMessage");
 
-    // Backend API URL - Update this with your Vercel deployment URL
-    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
+    // Backend API URL - Using the correct Vercel deployment URL
+    const API_BASE_URL = "https://vidpace-final-backend-email.vercel.app";
 
-    // Preview email functionality
-    previewBtn.addEventListener('click', function() {
-        const recipientName = document.getElementById('recipientName').value;
-        const senderEmail = document.getElementById('senderEmail').value;
-        const customMessage = document.getElementById('customMessage').value;
-        const emailBody = document.getElementById('emailBody').value;
-        
-        if (!recipientName || !emailBody || !senderEmail) {
-            showStatus('Please fill in sender email, recipient name and email body to preview.', 'error');
-            return;
-        }
-
-// Fixed HTML email template
-    const EMAIL_TEMPLATE = 
+    // Fixed HTML email template
+    const EMAIL_TEMPLATE = `
 <html>
   <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:
 'Segoe UI', sans-serif;">
     <div style="max-width:600px; margin:40px auto; background-color:#ffffff;
- border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+ border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08 );">
       
       <!-- Header -->
       <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">
@@ -47,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </p>
 
 <p style="font-size:16px; color:#444; line-height:1.6;">
-  Regards,<br>
+  Regards,  
+
   [[SenderName]]
   Vidpace Team
 </p>
@@ -59,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- Footer -->
       <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">
-        © 2025 Vidpace · Creative Youtube Automation<br/>
+        © 2025 Vidpace · Creative Youtube Automation  
+
         <a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>
       </div>
     </div>
@@ -67,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </html>`;
 
     // Preview email functionality - Fixed to render HTML properly
-    previewBtn.addEventListener('click', function() {
+    previewBtn.addEventListener('click', function( ) {
         const recipientName = document.getElementById('recipientName').value;
         const senderEmail = document.getElementById('senderEmail').value;
         const customMessage = document.getElementById('customMessage').value;
@@ -183,7 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^
+@]+@[^
+@]+\.[^
+@]+$/;
         if (!emailRegex.test(data.senderEmail)) {
             showStatus('Please enter a valid sender email address.', 'error');
             return false;
