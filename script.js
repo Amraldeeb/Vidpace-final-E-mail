@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusMessage = document.getElementById('statusMessage');
 
     // Backend API URL - Using the correct Vercel deployment URL
-    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
+    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app/';
 
     // Fixed HTML email template
     const EMAIL_TEMPLATE = `
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .replace(/\[SenderName\]/g, senderName)
             .replace(/\[Message\]/g, customMessage);
         
-        // Show preview using iframe for proper HTML rendering
-        previewFrame.srcdoc = personalizedBody;
+        // Show preview using div for proper HTML rendering
+        document.getElementById("previewContent").innerHTML = personalizedBody;
         previewSection.style.display = 'block';
         previewSection.scrollIntoView({ behavior: 'smooth' });
     });
