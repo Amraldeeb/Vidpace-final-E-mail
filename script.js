@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Extract sender name from email (part before @)
         const senderName = senderEmail.split('@')[0];
 
-        // Replace placeholders with actual val        let personalizedBody = EMAIL_TEMPLATE
+        // Replace placeholders with actual values        let personalizedBody = EMAIL_TEMPLATE
             .replace(/[[Recepient Name]]/g, recipientName)
             .replace(/[[SenderName]]/g, senderName)
             .replace(/[[Body]]/g, customMessage);
