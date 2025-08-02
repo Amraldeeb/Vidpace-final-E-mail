@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const EMAIL_TEMPLATE = 
 '<html>' +
 '  <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:\'Segoe UI\', sans-serif;">' +
-'    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08 );">' +
+'   <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08 );">' +
 '      <!-- Header -->' +
-'      '<div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">' +
+'      <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">' +
 '        '<img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />' +
 '      </div>' +
 '      <!-- Body -->' +
