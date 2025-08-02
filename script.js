@@ -1,5 +1,29 @@
-    // Fixed HTML email template
-    const EMAIL_TEMPLATE = `
+document.addEventListener('DOMContentLoaded', function() {
+    const emailForm = document.getElementById('emailForm');
+    const previewBtn = document.getElementById('previewBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const closePreviewBtn = document.getElementById('closePreview');
+    const previewSection = document.getElementById('previewSection');
+    const previewContent = document.getElementById('previewContent');
+    const statusMessage = document.getElementById('statusMessage');
+
+    // Backend API URL - Update this with your Vercel deployment URL
+    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
+
+    // Preview email functionality
+    previewBtn.addEventListener('click', function() {
+        const recipientName = document.getElementById('recipientName').value;
+        const senderEmail = document.getElementById('senderEmail').value;
+        const customMessage = document.getElementById('customMessage').value;
+        const emailBody = document.getElementById('emailBody').value;
+        
+        if (!recipientName || !emailBody || !senderEmail) {
+            showStatus('Please fill in sender email, recipient name and email body to preview.', 'error');
+            return;
+        }
+
+// Fixed HTML email template
+    const EMAIL_TEMPLATE = 
 <html>
   <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:
 'Segoe UI', sans-serif;">
