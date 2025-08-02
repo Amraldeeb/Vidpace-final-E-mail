@@ -1,25 +1,63 @@
-// Email sender frontend logic with custom message support
+// Fixed Email sender frontend logic
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('emailForm');
     const previewBtn = document.getElementById('previewBtn');
     const sendBtn = document.getElementById('sendBtn');
     const closePreviewBtn = document.getElementById('closePreview');
     const previewSection = document.getElementById('previewSection');
-    const previewContent = document.getElementById('previewContent');
+    const previewFrame = document.getElementById('previewFrame');
     const statusMessage = document.getElementById('statusMessage');
 
-    // Backend API URL - Update this with your Vercel deployment URL
-    const API_BASE_URL = 'https://3000-imq8x5lb0awnmxtqezrsj-b9d01901.manusvm.computer';
+    // Backend API URL - Using the correct Vercel deployment URL
+    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
 
-    // Preview email functionality
+    // Fixed HTML email template
+    const EMAIL_TEMPLATE = `
+<html>
+  <body style="margin:0; padding:0; background-color:#f5f5f5; font-family:'Segoe UI', sans-serif;">
+    <div style="max-width:600px; margin:40px auto; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+      
+      <!-- Header -->
+      <div style="background-color:#eeeeee; padding:20px 30px; text-align:center;">
+        <img src="https://static.wixstatic.com/media/056e0c_8797100b61ae453fb6ae48211f2143e5~mv2.png/v1/fill/w_147,h_66,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Vidpace.png" alt="Vidpace Logo" style="height:40px;" />
+      </div>
+
+      <!-- Body -->
+      <div style="padding:30px; text-align:left;">
+        <h2 style="color:#111; font-size:22px; margin:0 0 15px;">Hi [Name],</h2>
+
+        <p style="font-size:16px; color:#444; line-height:1.6; margin-bottom:20px;">
+          This is [SenderName] from vidpace. [Message]
+        </p>
+
+        <p style="font-size:16px; color:#444; line-height:1.6;">
+          Regards,<br>
+          [SenderName]<br>
+          Vidpace
+        </p>
+
+        <div style="text-align:center; margin:30px 0;">
+          <a href="https://www.vidpace.com/schedule-a-call" style="background-color:#E60023; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:16px;">Schedule A Quick Meeting</a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:12px; color:#999;">
+        © 2025 Vidpace · Creative Youtube Automation<br/>
+        <a href="https://vidpace.com" style="color:#999; text-decoration:none;">www.vidpace.com</a>
+      </div>
+    </div>
+  </body>
+</html>`;
+
+    // Preview email functionality - Fixed to render HTML properly
     previewBtn.addEventListener('click', function() {
         const recipientName = document.getElementById('recipientName').value;
         const senderEmail = document.getElementById('senderEmail').value;
         const customMessage = document.getElementById('customMessage').value;
-        const emailBody = document.getElementById('emailBody').value;
         
-        if (!recipientName || !emailBody || !senderEmail) {
-            showStatus('Please fill in sender email, recipient name and email body to preview.', 'error');
+        if (!recipientName || !senderEmail || !customMessage) {
+            showStatus('Please fill in all required fields to preview.', 'error');
             return;
         }
 
@@ -27,14 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const senderName = senderEmail.split('@')[0];
 
         // Replace placeholders with actual values
-        let personalizedBody = emailBody
+        let personalizedBody = EMAIL_TEMPLATE
             .replace(/\[Name\]/g, recipientName)
             .replace(/\[SenderName\]/g, senderName)
-            .replace(/\[Message\]/g, customMessage || 'I hope this email finds you well.')
-            .replace(/\{\{name\}\}/g, recipientName); // Keep backward compatibility
+            .replace(/\[Message\]/g, customMessage);
         
-        // Show preview
-        previewContent.innerHTML = personalizedBody;
+        // Show preview using iframe for proper HTML rendering
+        previewFrame.srcdoc = personalizedBody;
         previewSection.style.display = 'block';
         previewSection.scrollIntoView({ behavior: 'smooth' });
     });
@@ -44,35 +81,37 @@ document.addEventListener('DOMContentLoaded', function() {
         previewSection.style.display = 'none';
     });
 
-    // Send email functionality
-    sendBtn.addEventListener('click', async function(e) {
+    // Send email functionality - Fixed API URL and error handling
+    emailForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Get form data directly from form elements
+        const recipientName = document.getElementById('recipientName').value;
+        const senderEmail = document.getElementById('senderEmail').value;
+        const customMessage = document.getElementById('customMessage').value;
+        
         const emailData = {
-            senderEmail: document.getElementById('senderEmail').value,
+            senderEmail: senderEmail,
             senderPassword: document.getElementById('senderPassword').value,
             recipientEmail: document.getElementById('recipientEmail').value,
-            recipientName: document.getElementById('recipientName').value,
+            recipientName: recipientName,
             subject: document.getElementById('subject').value,
-            emailBody: document.getElementById('emailBody').value,
-            customMessage: document.getElementById('customMessage').value
+            emailBody: '' // Will be set below
         };
 
         console.log('Email data:', { ...emailData, senderPassword: '[HIDDEN]' });
 
         // Validate form data
-        if (!validateEmailData(emailData)) {
+        if (!validateEmailData(emailData, customMessage)) {
             return;
         }
 
-        // Personalize email body
+        // Generate personalized email body
         const senderName = emailData.senderEmail.split('@')[0];
-        emailData.emailBody = emailData.emailBody
+        emailData.emailBody = EMAIL_TEMPLATE
             .replace(/\[Name\]/g, emailData.recipientName)
             .replace(/\[SenderName\]/g, senderName)
-            .replace(/\[Message\]/g, emailData.customMessage || 'I hope this email finds you well.')
-            .replace(/\{\{name\}\}/g, emailData.recipientName); // Keep backward compatibility
+            .replace(/\[Message\]/g, customMessage);
 
         // Show loading state
         showStatus('<span class="loading-spinner"></span>Sending email...', 'loading');
@@ -87,25 +126,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    senderEmail: emailData.senderEmail,
-                    senderPassword: emailData.senderPassword,
-                    recipientEmail: emailData.recipientEmail,
-                    recipientName: emailData.recipientName,
-                    subject: emailData.subject,
-                    emailBody: emailData.emailBody
-                })
+                body: JSON.stringify(emailData)
             });
 
             console.log('Response status:', response.status);
-            console.log('Response headers:', response.headers);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             const result = await response.json();
             console.log('Response data:', result);
 
-            if (response.ok) {
+            if (result.success) {
                 showStatus('✅ Email sent successfully!', 'success');
-                // Don't reset form to preserve data for testing
                 previewSection.style.display = 'none';
             } else {
                 showStatus(`❌ Error: ${result.error || 'Failed to send email'}`, 'error');
@@ -120,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Validate email data
-    function validateEmailData(data) {
+    function validateEmailData(data, customMessage) {
         if (!data.senderEmail || !data.senderPassword) {
             showStatus('Please enter your email credentials.', 'error');
             return false;
@@ -131,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        if (!data.subject || !data.emailBody) {
-            showStatus('Please enter email subject and body.', 'error');
+        if (!data.subject || !customMessage) {
+            showStatus('Please enter email subject and your message.', 'error');
             return false;
         }
 
@@ -168,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
         statusMessage.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Auto-save form data to localStorage
+    // Auto-save form data to localStorage (excluding password)
     const formInputs = emailForm.querySelectorAll('input, textarea');
     formInputs.forEach(input => {
         // Load saved data
@@ -185,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Clear saved data button (optional)
+    // Clear saved data button
     const clearDataBtn = document.createElement('button');
     clearDataBtn.type = 'button';
     clearDataBtn.textContent = '🗑️ Clear Saved Data';
@@ -211,4 +245,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelector('.button-group').appendChild(clearDataBtn);
 });
-
