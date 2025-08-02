@@ -1,15 +1,4 @@
-// Fixed Email sender frontend logic
-document.addEventListener('DOMContentLoaded', function() {
-    const emailForm = document.getElementById('emailForm');
-    const previewBtn = document.getElementById('previewBtn');
-    const sendBtn = document.getElementById('sendBtn');
-    const closePreviewBtn = document.getElementById('closePreview');
-    const previewSection = document.getElementById('previewSection');
-    const previewFrame = document.getElementById('previewFrame');
-    const statusMessage = document.getElementById('statusMessage');
-
-    // Backend API URL - Using the correct Vercel deployment URL
-    const API_BASE_URL = 'https://vidpace-final-backend-email.vercel.app';
+https://vidpace-final-backend-email.vercel.app';
 
     // Fixed HTML email template
     const EMAIL_TEMPLATE = `
