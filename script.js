@@ -58,9 +58,9 @@ Vidpace Team</p>
         const capitalizedSenderName = senderName.charAt(0).toUpperCase() + senderName.slice(1);
 
         // Replace placeholders with actual values
-        let personalizedBody = EMAIL_TEMPLATE.replace(/[[Recepient Name]]/g, recipientName)
-            .replace(/[[SenderName]]/g, capitalizedSenderName)
-            .replace(/[[Body]]/g, customMessage);
+        let personalizedBody = EMAIL_TEMPLATE.replace(/\[\[Recepient Name\]\]/g, recipientName)
+            .replace(/\[\[SenderName\]\]/g, capitalizedSenderName)
+            .replace(/\[\[Body\]\]/g, customMessage);
         
         // Show preview using div for proper HTML rendering
         document.getElementById("previewContent").innerHTML = personalizedBody;
@@ -101,9 +101,9 @@ Vidpace Team</p>
         // Generate personalized email body
         const senderName = emailData.senderEmail.split('@')[0];
         const capitalizedSenderName = senderName.charAt(0).toUpperCase() + senderName.slice(1);
-        emailData.emailBody = EMAIL_TEMPLATE.replace(/[[Recepient Name]]/g, emailData.recipientName)
-            .replace(/[[SenderName]]/g, capitalizedSenderName)
-            .replace(/[[Body]]/g, customMessage);
+        emailData.emailBody = EMAIL_TEMPLATE.replace(/\[\[Recepient Name\]\]/g, emailData.recipientName)
+            .replace(/\[\[SenderName\]\]/g, capitalizedSenderName)
+            .replace(/\[\[Body\]\]/g, customMessage);
 
         // Show loading state
         showStatus('<span class="loading-spinner"></span>Sending email...', 'loading');
